@@ -6,6 +6,8 @@ import com.codahale.jerkson.JsonSnakeCase
 
 case class CaseClass(id: Long, name: String)
 
+case class CaseClassWithList[T](id: Long, list: List[T])
+
 case class CaseClassWithLazyVal(id: Long) {
   lazy val woo = "yeah"
 }

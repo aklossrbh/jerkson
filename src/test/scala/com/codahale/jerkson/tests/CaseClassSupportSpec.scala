@@ -27,6 +27,17 @@ class CaseClassSupportSpec extends Spec {
     }
   }
 
+	class `A deep parameterized case class` {
+		@Test def `generates a JSON object with matching field values` = {
+			generate(CaseClassWithList[CaseClass](1, List(CaseClass(1, "Coda")))).must(be("""{"id":1,"list":[{"id":1,"name":"Coda"}]}"""))
+		}
+
+		@Test def `is parsable from a JSON object with corresponding fields` = {
+			parse[CaseClassWithList[CaseClass]]("""{"id":1,"list":[{"id":1,"name":"Coda"}]}""").must(be(
+				CaseClassWithList[CaseClass](1, List(CaseClass(1, "Coda")))))
+		}
+	}
+
   class `A case class with lazy fields` {
     @Test def `generates a JSON object with those fields evaluated` = {
       generate(CaseClassWithLazyVal(1)).must(be("""{"id":1,"woo":"yeah"}"""))
